@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Diabetes Detection Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4A6FA5;
+            --secondary: #166088;
+            --accent: #2E933C;
+            --light: #F8F9FA;
+            --dark: #343A40;
+            --warning: #FF9F1C;
+            --danger: #E63946;
+            --gradient: linear-gradient(135deg, #4A6FA5 0%, #166088 100%);
+            --gradient-reverse: linear-gradient(135deg, #166088 0%, #4A6FA5 100%);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 15px 40px rgba(0, 0, 0, 0.12);
+            --radius: 12px;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f5f9ff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f9ff 0%, #e8f1ff 100%);
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%234A6FA5" opacity="0.03"/><path d="M0,0 L50,0 L0,50 Z" fill="%23166088" opacity="0.05"/><path d="M100,100 L50,100 L100,50 Z" fill="%232E933C" opacity="0.05"/></svg>');
+            z-index: -1;
+        }
+        
+        .auth-container {
+            display: flex;
+            width: 100%;
+            max-width: 1100px;
+            min-height: 650px;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            background: white;
+        }
+        
+        .auth-left {
+            flex: 1;
+            background: var(--gradient);
+            color: white;
+            padding: 50px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .auth-left::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+            background-size: cover;
+        }
+        
+        .auth-left-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+        }
+        
+        .logo i {
+            color: #fff;
+            font-size: 2.2rem;
+        }
+        
+        .auth-left h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .auth-left p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .features-list {
+            list-style: none;
+            margin-top: 30px;
+        }
+        
+        .features-list li {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+        
+        .features-list i {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.2);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        /* Right side - Form */
+        .auth-right {
+            flex: 1;
+            padding: 50px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .auth-header {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .auth-header h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.2rem;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+        
+        .auth-header p {
+            color: #666;
+            font-size: 1rem;
+        }
+        
+        .auth-form {
+            width: 100%;
+        }
+        
+        .input-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+        
+        .input-with-icon {
+            position: relative;
+        }
+        
+        .input-with-icon i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            font-size: 1.1rem;
+            z-index: 1;
+        }
+        
+        .input-with-icon input {
+            width: 100%;
+            padding: 16px 20px 16px 50px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: var(--transition);
+            background-color: #fcfdfe;
+        }
+        
+        .input-with-icon input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.1);
+            background-color: white;
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            cursor: pointer;
+            font-size: 1.1rem;
+            z-index: 2;
+        }
+        
+        .password-toggle:hover {
+            color: var(--primary);
+        }
+        
+        /* Phone input specific styling */
+        .phone-input-group {
+            position: relative;
+        }
+        
+        .phone-prefix {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            font-weight: 500;
+            z-index: 2;
+            background: #f0f4f8;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.95rem;
+        }
+        
+        .phone-input {
+            padding-left: 70px !important;
+        }
+        
+        /* Phone validation message */
+        .phone-validation {
+            margin-top: 8px;
+            font-size: 0.85rem;
+            min-height: 20px;
+        }
+        
+        .phone-validation.success {
+            color: var(--accent);
+        }
+        
+        .phone-validation.error {
+            color: var(--danger);
+        }
+        
+        /* Password Strength Indicator */
+        .password-strength {
+            margin-top: 8px;
+            height: 6px;
+            border-radius: 3px;
+            background: #e1e5e9;
+            overflow: hidden;
+        }
+        
+        .password-strength-bar {
+            height: 100%;
+            width: 0;
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+        
+        .strength-weak {
+            background-color: var(--danger);
+            width: 33%;
+        }
+        
+        .strength-medium {
+            background-color: var(--warning);
+            width: 66%;
+        }
+        
+        .strength-strong {
+            background-color: var(--accent);
+            width: 100%;
+        }
+        
+        .password-requirements {
+            margin-top: 8px;
+            font-size: 0.85rem;
+            color: #777;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .requirement {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .requirement i {
+            font-size: 0.8rem;
+        }
+        
+        .requirement.met {
+            color: var(--accent);
+        }
+        
+        .requirement.unmet {
+            color: #aaa;
+        }
+        
+        /* Password match indicator */
+        .password-match {
+            margin-top: 8px;
+            font-size: 0.85rem;
+            min-height: 20px;
+        }
+        
+        .password-match.success {
+            color: var(--accent);
+        }
+        
+        .password-match.error {
+            color: var(--danger);
+        }
+        
+        .terms-checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+        
+        .terms-checkbox input {
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+        
+        .terms-checkbox label {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        .terms-checkbox a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .terms-checkbox a:hover {
+            text-decoration: underline;
+        }
+        
+        .signup-btn {
+            width: 100%;
+            padding: 18px;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(74, 111, 165, 0.2);
+        }
+        
+        .signup-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(74, 111, 165, 0.3);
+        }
+        
+        .signup-btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .signup-btn i {
+            font-size: 1.2rem;
+        }
+        
+        .signup-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .login-text {
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        .login-text a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            margin-left: 5px;
+        }
+        
+        .login-text a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Flash Messages */
+        .flash-messages {
+            margin-bottom: 25px;
+        }
+        
+        .flash-message {
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideIn 0.4s ease forwards;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .flash-success {
+            background: #e8f7ef;
+            color: #27ae60;
+            border-left: 4px solid #27ae60;
+        }
+        
+        .flash-danger {
+            background: #ffeaea;
+            color: #e74c3c;
+            border-left: 4px solid #e74c3c;
+        }
+        
+        .flash-info {
+            background: #e8f4ff;
+            color: #3498db;
+            border-left: 4px solid #3498db;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .auth-container {
+                flex-direction: column;
+                max-width: 500px;
+            }
+            
+            .auth-left, .auth-right {
+                padding: 40px 30px;
+            }
+            
+            .auth-left h1 {
+                font-size: 2.2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .auth-left, .auth-right {
+                padding: 30px 20px;
+            }
+            
+            .auth-left h1 {
+                font-size: 1.9rem;
+            }
+            
+            .auth-header h2 {
+                font-size: 1.8rem;
+            }
+            
+            body {
+                padding: 15px;
+            }
+        }
+        
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 5px 15px rgba(74, 111, 165, 0.2);
+            }
+            50% {
+                box-shadow: 0 5px 20px rgba(74, 111, 165, 0.4);
+            }
+            100% {
+                box-shadow: 0 5px 15px rgba(74, 111, 165, 0.2);
+            }
+        }
+        
+        .shake {
+            animation: shake 0.5s ease-in-out;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container fade-in">
+        <!-- Left side - Branding & Info -->
+        <div class="auth-left">
+            <div class="auth-left-content">
+                <div class="logo">
+                    <i class="fas fa-heartbeat"></i>
+                    <span>GlucoAlert</span>
+                </div>
+                
+                <h1>Join Our Health Community</h1>
+                <p>Create your account to access our advanced diabetes risk assessment tool. Monitor your health, track progress, and get personalized insights.</p>
+                
+                <ul class="features-list">
+                    <li>
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Secure & encrypted health data storage</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-chart-line"></i>
+                        <span>Track your health metrics over time</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>Access from any device, anywhere</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Right side - Signup Form -->
+        <div class="auth-right">
+            <div class="auth-header">
+                <h2>Create Account</h2>
+                <p>Start your journey to better health today</p>
+            </div>
+            
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="flash-messages">
+                        {% for category, message in messages %}
+                            <div class="flash-message flash-{{ category }}">
+                                {% if category == 'success' %}
+                                    <i class="fas fa-check-circle"></i>
+                                {% elif category == 'danger' %}
+                                    <i class="fas fa-exclamation-circle"></i>
+                                {% else %}
+                                    <i class="fas fa-info-circle"></i>
+                                {% endif %}
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+            
+            <form method="POST" class="auth-form" id="signupForm">
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="username" name="username" placeholder="Choose a username" required 
+                               value="{{ form_data.username if form_data else '' }}">
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="email">Email Address</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required
+                               value="{{ form_data.email if form_data else '' }}">
+                    </div>
+                </div>
+                
+                <!-- Phone Number Field -->
+                <div class="input-group">
+                    <label for="phone">Phone Number <span style="color: #666; font-weight: normal;">(10 digits, will be used for login)</span></label>
+                    <div class="input-with-icon phone-input-group">
+                        <span class="phone-prefix">+91 </span>
+                        <input type="tel" id="phone" name="phone" placeholder="1234567890" required
+                               class="phone-input" maxlength="10"
+                               value="{{ form_data.phone if form_data else '' }}"
+                               oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                        <i class="fas fa-phone" style="left: 45px;"></i>
+                    </div>
+                    <div class="phone-validation" id="phoneValidation"></div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" name="password" placeholder="Create a strong password" required>
+                        <span class="password-toggle" id="passwordToggle">
+                            <i class="fas fa-eye"></i>
+                        </span>
+                    </div>
+                    
+                    <!-- Password Strength Indicator -->
+                    <div class="password-strength">
+                        <div class="password-strength-bar" id="passwordStrengthBar"></div>
+                    </div>
+                    
+                    <!-- Password Requirements -->
+                    <div class="password-requirements" id="passwordRequirements">
+                        <div class="requirement unmet" id="reqLength">
+                            <i class="fas fa-circle"></i>
+                            <span>At least 8 characters</span>
+                        </div>
+                        <div class="requirement unmet" id="reqUppercase">
+                            <i class="fas fa-circle"></i>
+                            <span>One uppercase letter</span>
+                        </div>
+                        <div class="requirement unmet" id="reqLowercase">
+                            <i class="fas fa-circle"></i>
+                            <span>One lowercase letter</span>
+                        </div>
+                        <div class="requirement unmet" id="reqNumber">
+                            <i class="fas fa-circle"></i>
+                            <span>One number</span>
+                        </div>
+                        <div class="requirement unmet" id="reqSpecial">
+                            <i class="fas fa-circle"></i>
+                            <span>One special character</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="confirm_password">Confirm Password</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="confirm_password" name="confirm_password" placeholder="Re-enter your password" required>
+                        <span class="password-toggle" id="confirmPasswordToggle">
+                            <i class="fas fa-eye"></i>
+                        </span>
+                    </div>
+                    <!-- Password Match Indicator -->
+                    <div class="password-match" id="passwordMatch"></div>
+                </div>
+                
+                <div class="terms-checkbox">
+                    <input type="checkbox" id="terms" name="terms" required>
+                    <label for="terms">
+                        I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+                    </label>
+                </div>
+                
+                <button type="submit" class="signup-btn pulse" id="signupButton">
+                    <i class="fas fa-user-plus"></i>
+                    Create Account
+                </button>
+            </form>
+            
+            <p class="login-text">
+                Already have an account?
+                <a href="/login">Log in here</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const passwordToggle = document.getElementById('passwordToggle');
+            const confirmPasswordToggle = document.getElementById('confirmPasswordToggle');
+            const passwordInput = document.getElementById('password');
+            const confirmPasswordInput = document.getElementById('confirm_password');
+            const passwordStrengthBar = document.getElementById('passwordStrengthBar');
+            const passwordMatchElement = document.getElementById('passwordMatch');
+            const phoneInput = document.getElementById('phone');
+            const phoneValidation = document.getElementById('phoneValidation');
+            const signupButton = document.getElementById('signupButton');
+            const form = document.getElementById('signupForm');
+            
+            // Toggle password visibility
+            function togglePasswordVisibility(inputElement, toggleIcon) {
+                if (inputElement.type === 'password') {
+                    inputElement.type = 'text';
+                    toggleIcon.innerHTML = '<i class="fas fa-eye-slash"></i>';
+                } else {
+                    inputElement.type = 'password';
+                    toggleIcon.innerHTML = '<i class="fas fa-eye"></i>';
+                }
+            }
+            
+            passwordToggle.addEventListener('click', function() {
+                togglePasswordVisibility(passwordInput, passwordToggle);
+            });
+            
+            confirmPasswordToggle.addEventListener('click', function() {
+                togglePasswordVisibility(confirmPasswordInput, confirmPasswordToggle);
+            });
+            
+            // Validate phone number
+            function validatePhoneNumber(phone) {
+                // Remove any non-digit characters
+                const digits = phone.replace(/\D/g, '');
+                
+                if (digits.length === 0) {
+                    return { isValid: false, message: 'Phone number is required' };
+                }
+                
+                if (digits.length !== 10) {
+                    return { isValid: false, message: 'Phone number must be exactly 10 digits' };
+                }
+                
+                // Check if it's a valid 10-digit number
+                const phoneRegex = /^[2-9]\d{9}$/;
+                if (!phoneRegex.test(digits)) {
+                    return { isValid: false, message: 'Please enter a valid phone number' };
+                }
+                
+                return { 
+                    isValid: true, 
+                    message: '<i class="fas fa-check"></i> Valid phone number',
+                    formatted: digits
+                };
+            }
+            
+            // Update phone validation UI
+            function updatePhoneValidation(phone) {
+                const validation = validatePhoneNumber(phone);
+                
+                phoneValidation.innerHTML = validation.message;
+                phoneValidation.className = 'phone-validation';
+                
+                if (phone.length === 0) {
+                    return;
+                }
+                
+                if (validation.isValid) {
+                    phoneValidation.classList.add('success');
+                } else {
+                    phoneValidation.classList.add('error');
+                }
+            }
+            
+            // Phone input event listener
+            phoneInput.addEventListener('input', function() {
+                // Allow only digits
+                this.value = this.value.replace(/\D/g, '');
+                
+                // Limit to 10 digits
+                if (this.value.length > 10) {
+                    this.value = this.value.substring(0, 10);
+                }
+                
+                updatePhoneValidation(this.value);
+                checkFormValidity();
+            });
+            
+            // Check password strength
+            function checkPasswordStrength(password) {
+                let strength = 0;
+                const requirements = {
+                    length: false,
+                    uppercase: false,
+                    lowercase: false,
+                    number: false,
+                    special: false
+                };
+                
+                // Check length
+                if (password.length >= 8) {
+                    strength += 20;
+                    requirements.length = true;
+                }
+                
+                // Check uppercase
+                if (/[A-Z]/.test(password)) {
+                    strength += 20;
+                    requirements.uppercase = true;
+                }
+                
+                // Check lowercase
+                if (/[a-z]/.test(password)) {
+                    strength += 20;
+                    requirements.lowercase = true;
+                }
+                
+                // Check numbers
+                if (/[0-9]/.test(password)) {
+                    strength += 20;
+                    requirements.number = true;
+                }
+                
+                // Check special characters
+                if (/[^A-Za-z0-9]/.test(password)) {
+                    strength += 20;
+                    requirements.special = true;
+                }
+                
+                return { strength, requirements };
+            }
+            
+            // Update password requirements UI
+            function updatePasswordRequirements(requirements) {
+                const reqIds = ['Length', 'Uppercase', 'Lowercase', 'Number', 'Special'];
+                
+                reqIds.forEach(req => {
+                    const element = document.getElementById(`req${req}`);
+                    if (requirements[req.toLowerCase()]) {
+                        element.classList.remove('unmet');
+                        element.classList.add('met');
+                        element.innerHTML = `<i class="fas fa-check-circle"></i><span>${element.textContent}</span>`;
+                    } else {
+                        element.classList.remove('met');
+                        element.classList.add('unmet');
+                        element.innerHTML = `<i class="fas fa-circle"></i><span>${element.textContent}</span>`;
+                    }
+                });
+            }
+            
+            // Update password strength bar
+            function updateStrengthBar(strength) {
+                passwordStrengthBar.className = 'password-strength-bar';
+                
+                if (strength < 40) {
+                    passwordStrengthBar.classList.add('strength-weak');
+                } else if (strength < 80) {
+                    passwordStrengthBar.classList.add('strength-medium');
+                } else {
+                    passwordStrengthBar.classList.add('strength-strong');
+                }
+            }
+            
+            // Check password match
+            function checkPasswordMatch() {
+                const password = passwordInput.value;
+                const confirmPassword = confirmPasswordInput.value;
+                
+                if (confirmPassword === '') {
+                    passwordMatchElement.innerHTML = '';
+                    passwordMatchElement.className = 'password-match';
+                    return false;
+                }
+                
+                if (password === confirmPassword) {
+                    passwordMatchElement.innerHTML = '<i class="fas fa-check"></i> Passwords match';
+                    passwordMatchElement.className = 'password-match success';
+                    return true;
+                } else {
+                    passwordMatchElement.innerHTML = '<i class="fas fa-times"></i> Passwords do not match';
+                    passwordMatchElement.className = 'password-match error';
+                    return false;
+                }
+            }
+            
+            // Check overall form validity
+            function checkFormValidity() {
+                const username = document.getElementById('username').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const phone = phoneInput.value.trim();
+                const password = passwordInput.value;
+                const confirmPassword = confirmPasswordInput.value;
+                const terms = document.getElementById('terms').checked;
+                
+                const phoneValid = validatePhoneNumber(phone).isValid;
+                const passwordMatch = checkPasswordMatch();
+                const passwordValid = password.length >= 6;
+                
+                const isFormValid = username && email && phoneValid && passwordValid && passwordMatch && terms;
+                
+                signupButton.disabled = !isFormValid;
+                return isFormValid;
+            }
+            
+            // Event listeners for password validation
+            passwordInput.addEventListener('input', function() {
+                const password = passwordInput.value;
+                const { strength, requirements } = checkPasswordStrength(password);
+                
+                updatePasswordRequirements(requirements);
+                updateStrengthBar(strength);
+                checkPasswordMatch();
+                checkFormValidity();
+            });
+            
+            confirmPasswordInput.addEventListener('input', function() {
+                checkPasswordMatch();
+                checkFormValidity();
+            });
+            
+            // Other form inputs event listeners
+            document.getElementById('username').addEventListener('input', checkFormValidity);
+            document.getElementById('email').addEventListener('input', checkFormValidity);
+            document.getElementById('terms').addEventListener('change', checkFormValidity);
+            
+            // Form submission
+            form.addEventListener('submit', function(event) {
+                const phone = phoneInput.value.trim();
+                const phoneValidationResult = validatePhoneNumber(phone);
+                const password = passwordInput.value;
+                const confirmPassword = confirmPasswordInput.value;
+                const terms = document.getElementById('terms').checked;
+                
+                // Check phone validation
+                if (!phoneValidationResult.isValid) {
+                    event.preventDefault();
+                    phoneInput.focus();
+                    phoneValidation.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${phoneValidationResult.message}`;
+                    phoneValidation.className = 'phone-validation error';
+                    form.classList.add('shake');
+                    setTimeout(() => form.classList.remove('shake'), 500);
+                    return;
+                }
+                
+                if (!terms) {
+                    event.preventDefault();
+                    alert('Please agree to the Terms of Service and Privacy Policy.');
+                    return;
+                }
+                
+                if (password !== confirmPassword) {
+                    event.preventDefault();
+                    alert('Passwords do not match. Please check and try again.');
+                    return;
+                }
+                
+                // Optional: Warn about weak passwords
+                const { strength } = checkPasswordStrength(password);
+                if (strength < 40) {
+                    const proceed = confirm('Your password is weak. We recommend using a stronger password with at least 8 characters including uppercase, lowercase, numbers, and special characters. Do you want to continue with this weak password?');
+                    if (!proceed) {
+                        event.preventDefault();
+                        return;
+                    }
+                }
+                
+                // Show loading state
+                signupButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
+                signupButton.disabled = true;
+                
+                // Format phone number before submission (ensure it's 10 digits)
+                phoneInput.value = phoneValidationResult.formatted;
+            });
+            
+            // Initial form validation check
+            checkFormValidity();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Diabetes Detection Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4A6FA5;
+            --secondary: #166088;
+            --accent: #2E933C;
+            --light: #F8F9FA;
+            --dark: #343A40;
+            --warning: #FF9F1C;
+            --danger: #E63946;
+            --gradient: linear-gradient(135deg, #4A6FA5 0%, #166088 100%);
+            --gradient-reverse: linear-gradient(135deg, #166088 0%, #4A6FA5 100%);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 15px 40px rgba(0, 0, 0, 0.12);
+            --radius: 12px;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f5f9ff;
+            min-height: 100vh;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f9ff 0%, #e8f1ff 100%);
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%234A6FA5" opacity="0.03"/><path d="M0,0 L50,0 L0,50 Z" fill="%23166088" opacity="0.05"/><path d="M100,100 L50,100 L100,50 Z" fill="%232E933C" opacity="0.05"/></svg>');
+            z-index: -1;
+        }
+        
+        /* Navigation */
+        .navbar {
+            background: white;
+            border-radius: var(--radius);
+            padding: 15px 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-brand {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .nav-brand i {
+            color: var(--accent);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover {
+            background: var(--light);
+            color: var(--primary);
+        }
+        
+        .nav-links a.active {
+            background: var(--gradient);
+            color: white;
+        }
+        
+        /* Profile Container */
+        .profile-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        /* Profile Header */
+        .profile-header {
+            background: var(--gradient);
+            color: white;
+            padding: 50px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .profile-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(30%, -30%);
+        }
+        
+        .profile-header-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+        
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .profile-info h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .profile-info p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        /* Profile Content */
+        .profile-content {
+            padding: 40px;
+        }
+        
+        .profile-section {
+            margin-bottom: 40px;
+        }
+        
+        .profile-section h2 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark);
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .profile-section h2 i {
+            color: var(--primary);
+        }
+        
+        /* Info Cards */
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .info-card {
+            background: var(--light);
+            border-radius: var(--radius);
+            padding: 25px;
+            transition: var(--transition);
+            border-left: 4px solid var(--primary);
+        }
+        
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+        
+        .info-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        
+        .info-card-header i {
+            color: var(--primary);
+            font-size: 1.2rem;
+            background: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .info-card-header h3 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark);
+            font-size: 1.2rem;
+        }
+        
+        .info-card-body p {
+            color: #666;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+        
+        .info-value {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-top: 5px;
+        }
+        
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+            border: none;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+            box-shadow: 0 5px 15px rgba(74, 111, 165, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(74, 111, 165, 0.4);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--light);
+            transform: translateY(-3px);
+        }
+        
+        /* Flash Messages */
+        .flash-messages {
+            max-width: 900px;
+            margin: 0 auto 30px auto;
+        }
+        
+        .flash-message {
+            padding: 15px 20px;
+            border-radius: var(--radius);
+            margin-bottom: 15px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideIn 0.4s ease forwards;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .flash-success {
+            background: #e8f7ef;
+            color: #27ae60;
+            border-left: 4px solid #27ae60;
+        }
+        
+        .flash-danger {
+            background: #ffeaea;
+            color: #e74c3c;
+            border-left: 4px solid #e74c3c;
+        }
+        
+        .flash-info {
+            background: #e8f4ff;
+            color: #3498db;
+            border-left: 4px solid #3498db;
+        }
+        
+        /* Member Since */
+        .member-since {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .profile-header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .profile-avatar {
+                width: 100px;
+                height: 100px;
+                font-size: 2.5rem;
+            }
+            
+            .profile-info h1 {
+                font-size: 2rem;
+            }
+            
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+                padding: 20px;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .profile-content {
+                padding: 30px 20px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .info-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .profile-header {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="{{ url_for('dashboard') }}" class="nav-brand">
+            <i class="fas fa-heartbeat"></i>
+            <span>GlucoAlert</span>
+        </a>
+        <div class="nav-links">
+            <a href="{{ url_for('dashboard') }}"><i class="fas fa-home"></i> Dashboard</a>
+            <a href="{{ url_for('profile') }}" class="active"><i class="fas fa-user"></i> Profile</a>
+            <a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    <div class="flash-messages">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message flash-{{ 'success' if category == 'success' else 'danger' if category == 'danger' else 'info' }}">
+                        {% if category == 'success' %}
+                            <i class="fas fa-check-circle"></i>
+                        {% elif category == 'danger' %}
+                            <i class="fas fa-exclamation-circle"></i>
+                        {% else %}
+                            <i class="fas fa-info-circle"></i>
+                        {% endif %}
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- Profile Container -->
+    <div class="profile-container">
+        <!-- Profile Header -->
+        <div class="profile-header">
+            <div class="profile-header-content">
+                <div class="profile-avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="profile-info">
+                    <h1>{{ user.username }}</h1>
+                    <p>GlucoAlert Member</p>
+                    <div class="member-since">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>Member since: {{ user.created_at.strftime('%B %d, %Y') if user.created_at else 'Recently' }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Content -->
+        <div class="profile-content">
+            <!-- Account Information -->
+            <div class="profile-section">
+                <h2><i class="fas fa-user-cog"></i> Account Information</h2>
+                <div class="info-cards">
+                    <div class="info-card">
+                        <div class="info-card-header">
+                            <i class="fas fa-user"></i>
+                            <h3>Username</h3>
+                        </div>
+                        <div class="info-card-body">
+                            <p>Your unique identifier for DiabetesDetect Pro</p>
+                            <div class="info-value">{{ user.username }}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="info-card-header">
+                            <i class="fas fa-envelope"></i>
+                            <h3>Email Address</h3>
+                        </div>
+                        <div class="info-card-body">
+                            <p>Your registered email for account recovery</p>
+                            <div class="info-value">{{ user.email }}</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Phone Number Card -->
+                    <div class="info-card">
+                        <div class="info-card-header">
+                            <i class="fas fa-phone"></i>
+                            <h3>Phone Number</h3>
+                        </div>
+                        <div class="info-card-body">
+                            <p>Your registered phone number for login</p>
+                            <div class="info-value">
+                                {% if user.phone %}
+                                    +91 {{ user.phone[:5] }} {{ user.phone[5:] }}
+                                {% else %}
+                                    Not set
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Account Security -->
+            <div class="profile-section">
+                <h2><i class="fas fa-shield-alt"></i> Account Security</h2>
+                <div class="info-cards">
+                    <div class="info-card">
+                        <div class="info-card-header">
+                            <i class="fas fa-key"></i>
+                            <h3>Password</h3>
+                        </div>
+                        <div class="info-card-body">
+                            <p>Keep your account secure with a strong password</p>
+                            <div class="info-value">•••••••••••</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Login Methods Card -->
+                    <div class="info-card">
+                        <div class="info-card-header">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <h3>Login Methods</h3>
+                        </div>
+                        <div class="info-card-body">
+                            <p>You can login using any of these credentials:</p>
+                            <ul style="margin-top: 10px; padding-left: 20px; color: #666;">
+                                <li>Username: <strong>{{ user.username }}</strong></li>
+                                <li>Email: <strong>{{ user.email }}</strong></li>
+                                {% if user.phone %}
+                                <li>Phone: <strong>+91 {{ user.phone[:5] }} {{ user.phone[5:] }}</strong></li>
+                                {% else %}
+                                <li>Phone: <em style="color: #999;">Not configured</em></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <a href="{{ url_for('change_password') }}" class="btn btn-primary">
+                    <i class="fas fa-key"></i> Change Password
+                </a>
+                <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Back to Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Auto-hide flash messages after 5 seconds
+        setTimeout(() => {
+            const alerts = document.querySelectorAll('.flash-message');
+            alerts.forEach(alert => {
+                alert.style.opacity = '0';
+                setTimeout(() => {
+                    alert.style.display = 'none';
+                }, 300);
+            });
+        }, 5000);
+    </script>
+</body>
+</html>
