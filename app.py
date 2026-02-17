@@ -323,42 +323,8 @@ def logout():
     flash("You have been logged out successfully.", "info")
     return redirect(url_for('login'))
 
-def main():
-    # Initialize database
-    init_database()
-    
-    print("\n" + "="*60)
-    print("🚀 Diabetes Detection Application")
-    print("="*60)
-    print("🌐 Application will be available at: http://127.0.0.1:5000")
-    print("\n📋 Available routes:")
-    print("  - /           -> Home page")
-    print("  - /signup     -> Signup page (with phone number)")
-    print("  - /login      -> Login page (username/email/phone)")
-    print("  - /dashboard  -> User dashboard")
-    print("  - /profile    -> User profile")
-    print("  - /logout     -> Logout")
-    print("="*60 + "\n")
-    
-    # Start browser in a separate thread
-    def start_browser():
-        time.sleep(2.5)  # Wait a bit longer for Flask to fully start
-        try:
-            webbrowser.open_new('http://127.0.0.1:5000/')
-            print("✅ Browser opened successfully!")
-            print("💡 If browser doesn't open, manually go to: http://127.0.0.1:5000")
-        except Exception as e:
-            print(f"⚠️  Could not open browser automatically: {e}")
-            print("⚠️  Please manually navigate to: http://127.0.0.1:5000")
-    
-    # Start the browser thread
-    browser_thread = threading.Thread(target=start_browser)
-    browser_thread.daemon = True
-    browser_thread.start()
-    
-    # Run the Flask app
-    print("🔄 Starting Flask server...")
-    app.run(debug=True, host='127.0.0.1', port=5000, use_reloader=False)
+
 
 if __name__ == '__main__':
-    main()
+    init_database()
+    app.run(host="0.0.0.0", port=5000)
